@@ -1,0 +1,44 @@
+version: '3'
+
+services:
+      backend_service : 
+            container_name: pursuit_backend_container
+            build: ./backend/pursuit_backend
+            command: sh -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
+            ports:
+                 - "8000:8000"
+            volumes:
+                  - ./backend/pursuit_backend/:/backend/
+            command: sh -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
+            restart: on-failure:10
+            depends_on:
+                - mysql_db_service
+
+      frontend_service:
+            container_name: pursuit_frontend_container
+            build: ./my-app
+            ports:
+                - "3000:3000"
+            volumes:
+                - ./my-app/:/frontend/pursuit/
+            command: npm start
+            depends_on:
+                - backend_service
+                - redis_service
+
+      redis_service:
+            container_name: redis_container
+            image: redis
+            ports:
+                - "6379:6379"
+            
+      mysql_db_service:
+            image: mysql:8.0.32
+            container_name: mysql_db_container
+            restart: always
+            env_file:
+                - ./mysql/database.env
+            ports:
+                - "3306:3306"
+            volumes: 
+                - ./data-db:/var/lib/mysql directory

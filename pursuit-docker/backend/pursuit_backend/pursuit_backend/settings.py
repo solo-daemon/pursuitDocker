@@ -57,6 +57,8 @@ CORS_ALLOW_METHODS = [
     ]
 
 INSTALLED_APPS = [
+    'daphne',
+    'channels',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -67,7 +69,6 @@ INSTALLED_APPS = [
     'pursuit_app',
     'django_filters' ,
     'corsheaders' ,
-    'channels' ,
     'rest_framework.authtoken' ,
 ]
 
@@ -178,3 +179,11 @@ REST_FRAMEWORK = {
 }
 
 ASGI_APPLICATION = "pursuit_backend.asgi.application"
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [("127.0.0.1", 6379)],
+        },
+    },
+}
