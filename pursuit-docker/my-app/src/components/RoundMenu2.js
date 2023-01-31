@@ -7,6 +7,12 @@ import { Grid } from '@mui/material';
 import Divider from '@mui/material/Divider';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import GradeIcon from '@mui/icons-material/Grade';
+import TabContext from '@mui/lab/TabContext';
+import TabList from '@mui/lab/TabList';
+import Tab from '@mui/material/Tab';
+import Tabs from '@mui/material/Tabs';
+import {Box} from '@mui/material';
+
 const RoundMenu = () => {
     const roundData = useSelector((state) => state.round.roundData)
     const roundState = useSelector((state) => state.round)
@@ -14,6 +20,7 @@ const RoundMenu = () => {
     const seasonState = useSelector((state) => state.season)
     const token = useSelector((state) => state.token.token)
     const [anchorEl, setAnchorEl] = React.useState(null);
+    const [tabRound,setTabRound]=React.useState(0)
     const open = Boolean(anchorEl);
     const dispatch = useDispatch()
     const handleClick = (event) => {
@@ -61,14 +68,24 @@ const RoundMenu = () => {
                 })
         }
     }
+    function getQuestionData(){
+
+    }
     function handleMenuItemClick(round_id) {
         dispatch(setActiveRound(round_id));
         roundData.map((props)=>{
             if(props.id==round_id){
                 dispatch(setActiveRoundType(props.round_type))
+                
             }
         })
+    
+    
+
         setAnchorEl(null)
+    }
+    function handleTabChange(even,newValue){
+        setTabRound(newValue)
     }
     React.useEffect(() => {
         getStudentData();
@@ -84,47 +101,52 @@ const RoundMenu = () => {
         }
         return 0;
     }
-    const menu_item = roundData.map((props) =>
-        <div>
-            <Grid Item key={props.id} onClick={() => handleMenuItemClick(props.id)} sx={{
-                width: '200px',
-                display: "flex",
-                alignItems: 'center',
-                justifyContent: 'center',
-                mx: 1,
-                flexWrap: 'nowrap',
-                borderColor: 'primary.main',
-                borderBottom: borderBottom(props.id),
+    // const menu_item = roundData.map((props) =>
+    //     <div>
+    //         <Grid Item key={props.id} onClick={() => handleMenuItemClick(props.id)} sx={{
+    //             width: '200px',
+    //             display: "flex",
+    //             alignItems: 'center',
+    //             justifyContent: 'center',
+    //             mx: 1,
+    //             flexWrap: 'nowrap',
+    //             borderColor: 'primary.main',
+    //             borderBottom: borderBottom(props.id),
 
-            }}>
-                {props.round_type == 'T' &&
-                    <GradeIcon />
-                }
-                {props.round_type == 'I' &&
-                    <CalendarMonthIcon />
-                }
+    //         }}>
+    //             {props.round_type == 'T' &&
+    //                 <GradeIcon />
+    //             }
+    //             {props.round_type == 'I' &&
+    //                 <CalendarMonthIcon />
+    //             }
 
-                {props.round_name}
+    //             {props.round_name}
 
-            </Grid>
+    //         </Grid>
 
-            <Divider orientation="vertical" flexItem />
-        </div>
+    //         <Divider orientation="vertical" flexItem />
+    //     </div>
+    // )
+
+    const menu_item = roundData.map((props)=>
+        <Tab label={props.round_name} key={props.id} value={props.id} onClick={()=>{handleMenuItemClick(props.id)}}>Hello</Tab>
     )
+    console.log(menu_item);
     return (
-        <Grid container={2} sx={{
-            display: 'flex',
-            overflow: 'auto',
-            flexWrap: 'nowrap',
-            flexDirection: 'row',
-            alignItems: 'center',
-            my: 2,
-            border: 1,
-            borderRadius: '5px',
-            py: 2,
-        }}>
-            {menu_item.length != 0 ? menu_item : 'No Rounds Created for this Season'}
-        </Grid>
+        <Box sx={{ width: '100%' ,my:1}}>
+        <Tabs
+          value={tabRound}
+          textColor="secondary"
+          onChange={handleTabChange}
+          indicatorColor="secondary"
+          aria-label="secondary tabs example"
+          variant="scrollable"
+          scrollButtons="auto"
+        >
+            {menu_item.length != 0 ? menu_item : <Tab label='No Rounds Created for this Season' />}
+        </Tabs>
+      </Box>
     );
 }
 

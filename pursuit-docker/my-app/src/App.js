@@ -3,7 +3,6 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import './App.css';
 import Home from './containers/Home/Home'
 import Grader from './containers/Home/Grader'
-import Scheduler from './containers/Home/Scheduler'
 import Question from './containers/Home/Question'
 import LogIn from './containers/Login'
 import Dashboard from './containers/Dashboard'
@@ -50,9 +49,8 @@ export default function App() {
             <Route path='profile' element={<Profile/>}/>
             <Route path='home' >
               <Route path='' element={<Home/>}/>
-              <Route path='grader' element={<Grader/>}/> 
+              <Route path='grader' element={<Grader />}/> 
               <Route path='question' element={<Question />}/>
-              <Route path='scheduler' element={<Scheduler/>}/>\
             </Route>
             <Route path='dashboard' >
               <Route path = '' element = {<Dashboard/>}/>
