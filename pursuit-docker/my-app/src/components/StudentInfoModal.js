@@ -70,7 +70,7 @@ function StudentRoundData(){
     );
 }
 
-const Grader = () => {
+const StudentInfoModal = (props) => {
     const token = useSelector((state) => state.token.token);
     const config = {
         headers : {
@@ -78,8 +78,9 @@ const Grader = () => {
         }
     }
     return(
+        <Modal open={props.open} onClose={()=>{props.onClose()}}> 
         <Container fixed>
-            hrll
+            
             <Paper sx={{
                 border: '2px solid black',
                 py: 3,
@@ -107,7 +108,8 @@ const Grader = () => {
                 <StudentRoundData/>
             </Paper>
         </Container>
+        </Modal>
     );
 
 };
-export default Grader ;
+export default StudentInfoModal ;

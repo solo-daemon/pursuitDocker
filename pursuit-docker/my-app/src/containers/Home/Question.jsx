@@ -33,9 +33,9 @@ const sectionModalStyle = {
     border: '2px solid #000',
     boxShadow: 24,
     p: 4,
-  };    
+};
 
-const questionModalStyle={
+const questionModalStyle = {
     position: 'absolute',
     top: '50%',
     left: '50%',
@@ -44,119 +44,119 @@ const questionModalStyle={
     bgcolor: 'background.paper',
     boxShadow: 24,
     p: 6,
-    display:'felx',
-    justifyContent:'center'
+    display: 'felx',
+    justifyContent: 'center'
 };
 
-function SectionModal(props){
+function SectionModal(props) {
     console.log(props)
     return (
         <Modal
             open={props.open}
-            onClose={()=>{props.onClose()}}
-            >
-                <Paper style={{...sectionModalStyle}}>
-                    <FormControl sx={{p:2,display:'flex',flexDirection:'column' ,justifyContent:'center'}}>
-                        <Input id='section-heading-create' sx={{m:2}} placeholder="Section Name" value='' onChange={console.log('hello')}></Input>
-                        <Button type="submit" variant="contained" sx={{m:2}}>Create Section</Button>
-                    </FormControl>
-                </Paper>
+            onClose={() => { props.onClose() }}
+        >
+            <Paper style={{ ...sectionModalStyle }}>
+                <FormControl sx={{ p: 2, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+                    <Input id='section-heading-create' sx={{ m: 2 }} placeholder="Section Name" value='' onChange={console.log('hello')}></Input>
+                    <Button type="submit" variant="contained" sx={{ m: 2 }}>Create Section</Button>
+                </FormControl>
+            </Paper>
         </Modal>
     );
 }
-function QuestionModal(props){
-    return(
-        <Modal  open={props.open}
-                onClose={()=>{props.onClose()}}
+function QuestionModal(props) {
+    return (
+        <Modal open={props.open}
+            onClose={() => { props.onClose() }}
 
         >
-            <Paper style={{...questionModalStyle}}>
-            <FormControl sx={{p:2,display:'flex',flexDirection:'column' , justifyContent:'center'}}>
-                        <TextField id='question-create-maximum-marks' placeholder='Maximum Marks' type='number' sx={{m:1}}/>
-                        <TextareaAutosize id="question-create" placeholder='Write Question here' maxRows={4}  sx={{m:1}}/>
-                        <Button type="submit" variant="contained" sx={{m:2}}>Create Section</Button>
-                    </FormControl>
+            <Paper style={{ ...questionModalStyle }}>
+                <FormControl sx={{ p: 2, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+                    <TextField id='question-create-maximum-marks' placeholder='Maximum Marks' type='number' sx={{ m: 1 }} />
+                    <TextareaAutosize id="question-create" placeholder='Write Question here' maxRows={4} sx={{ m: 1 }} />
+                    <Button type="submit" variant="contained" sx={{ m: 2 }}>Create Section</Button>
+                </FormControl>
             </Paper>
         </Modal>
     )
 }
 
-function Section(props){
+function Section(props) {
 
-    const handleQuestionModalOpen=()=>{
-
-    }
-    const handleSectionDelete=()=>{
+    const handleQuestionModalOpen = () => {
 
     }
-    return(
+    const handleSectionDelete = () => {
+
+    }
+    return (
         <Paper elevation={3} sx={{
             border: 1,
-            p:2,
-            m:2,
+            p: 2,
+            m: 2,
         }}>
             <Box sx={{
-                display:"flex",
-                justifyContent:"space-between",
+                display: "flex",
+                justifyContent: "space-between",
                 px: 2,
-                py :1
+                py: 1
             }}>
                 <Typography variant='h4'>
                     props.section_name
                 </Typography>
                 <Box >
-                <Tooltip title="Add Questions">
-                
-                <IconButton onClick={props.openQuestionModal}>
-                    <AddCircleIcon/>
-                </IconButton>
-                </Tooltip>
-                <Tooltip  title="Delete Section">
-                    <IconButton color="primary" onClick={handleSectionDelete}>
-                        <DeleteIcon/>
-                    </IconButton>
-                </Tooltip>
+                    <Tooltip title="Add Questions">
+
+                        <IconButton onClick={props.openQuestionModal}>
+                            <AddCircleIcon />
+                        </IconButton>
+                    </Tooltip>
+                    <Tooltip title="Delete Section">
+                        <IconButton color="primary" onClick={handleSectionDelete}>
+                            <DeleteIcon />
+                        </IconButton>
+                    </Tooltip>
                 </Box>
             </Box>
-            <Divider/>
+            <Divider />
             <QuestionCard />
-            <QuestionCard/>
+            <QuestionCard />
         </Paper>
     )
 }
 
 
-function QuestionCard(){
+function QuestionCard() {
 
-    return(
-        <Paper sx={{p:1,m:2}}>
+    return (
+        <Paper sx={{ p: 1, m: 2 }}>
             <Box sx={{
-                display:'flex',
-                justifyContent:'space-between',
-        }}>
-            <Box sx={{display:"flex"}}>
-                <Typography variant="h6">props.marks </Typography>
-                <Typography variant="h6">Marks</Typography>
+                display: 'flex',
+                justifyContent: 'space-between',
+            }}>
+                <Box sx={{ display: "flex" }}>
+                    <TextField variant="standard" sx={{width:'50px'}} value={10}>props.marks </TextField>
+                    <Typography variant="h6">Marks</Typography>
+                </Box>
+                <Box>
+                    <Tooltip title="Edit Question">
+                        <IconButton>
+                            <EditIcon color="primary" />
+                        </IconButton>
+                    </Tooltip>
+                    <Tooltip title="Delete Question">
+                        <IconButton>
+                            <DeleteIcon color="primary" />
+                        </IconButton>
+                    </Tooltip>
+                </Box>
             </Box>
-            <Box>
-            <Tooltip title="Edit Question">
-            <IconButton>
-                <EditIcon color="primary"/>
-            </IconButton>
-            </Tooltip>
-            <Tooltip title="Delete Question">
-            <IconButton>
-                <DeleteIcon color="primary"/>
-            </IconButton>
-            </Tooltip>
-            </Box>
-            </Box> 
-            <Divider/>
+            <Divider />
             <Box sx={{
-                m:2
+                m: 2
             }}>
                 <Typography variant='body1'>
-                props.question
+                    props.question
                 </Typography>
             </Box>
         </Paper>
@@ -164,43 +164,43 @@ function QuestionCard(){
 }
 
 const Question = () => {
-    const [questionModalOpen,setQuestionModalOpen]=React.useState();
-    const [sectionModalOpen,setSectionModalOpen]=React.useState();
+    const [questionModalOpen, setQuestionModalOpen] = React.useState();
+    const [sectionModalOpen, setSectionModalOpen] = React.useState();
 
-    const handleQuestionModalOpen=()=>{
+    const handleQuestionModalOpen = () => {
         setQuestionModalOpen(true);
-        
+
     }
-    const handleQuestionModalClose=()=>{
+    const handleQuestionModalClose = () => {
         setQuestionModalOpen(false);
     }
-    const handleSectionModalOpen=()=>{
+    const handleSectionModalOpen = () => {
         setSectionModalOpen(true);
 
     }
-    const handleSectionModalClose=()=>{
+    const handleSectionModalClose = () => {
         setSectionModalOpen(false);
     }
     const token = useSelector((state) => state.token.token);
     const config = {
-        headers : {
-            'Authorization' : 'Token ' + token ,
+        headers: {
+            'Authorization': 'Token ' + token,
         }
     }
     console.log(sectionModalOpen)
-    return(
+    return (
         <Container fixed>
-            <RoundMenu/>
+            <RoundMenu />
             <Tooltip title="Add Section">
-            <Fab color="primary" aria-label="add" onClick={handleSectionModalOpen}>
-                <AddIcon />
-            </Fab>
+                <Fab color="primary" aria-label="add" onClick={handleSectionModalOpen}>
+                    <AddIcon />
+                </Fab>
             </Tooltip>
             <Section openQuestionModal={handleQuestionModalOpen}></Section>
             <SectionModal open={sectionModalOpen} onClose={handleSectionModalClose} />
-            <QuestionModal open={questionModalOpen} onClose={handleQuestionModalClose}/>
+            <QuestionModal open={questionModalOpen} onClose={handleQuestionModalClose} />
         </Container>
     );
 
 };
-export default Question ;
+export default Question;

@@ -11,6 +11,7 @@ import UploadStudent from '../components/UploadStudent';
 import Modal from '@mui/material/Modal';
 import { Box } from "@mui/system";
 import { Paper } from '@mui/material';
+import StudentInfoModal from '../components/StudentModal';
 const style = {
     position: 'absolute',
     top: '50%',
@@ -67,6 +68,7 @@ const  Dashboard=()=>{
 
     const roundState = useSelector((state)=>state.round)
     const [openStudentUploadModal,setOpenStudentUploadModal] = React.useState(false)
+    const [openStudentInfoModal,setOpenStudentInfoModal]=React.useState(false)
     const [openCheckboxSelection,setOpenCheckboxSelection]=React.useState(false)
     const [selectedStudent,setSelectedStudent]=React.useState([]);
     const [roundType,setRoundType]=React.useState("")
@@ -81,10 +83,18 @@ const  Dashboard=()=>{
         setOpenStudentUploadModal(true);
     }
     const handleCloseStudentUploadModal=()=>{
-        setOpenStudentUploadModal(false);
+        setOpenStudentUploadModal(false)
     }
+    const handleCloseStudentInfoModal=()=>{
+        setOpenStudentInfoModal(false);
+    }
+    const handleOpenStudentInfoModal=()=>{
+        setOpenStudentInfoModal(true)
+    }
+
     React.useEffect(()=>{
         setRoundType(roundState.activeRoundType)
+        setOpenStudentInfoModal(true)
     },[roundState.activeRoundType])
     return (
     <div>
@@ -93,12 +103,13 @@ const  Dashboard=()=>{
         
         <DashboardTaskBar openCheckboxActions={openCheckboxSelection} selectedStudent={selectedStudent}/>
         {roundState.activeRoundType == 'I' ?
-        <InterviewRoundTable    openCheckboxSelection={handleCheckboxSelection} handleSelectedStudent={handleSelectedStudent}/> : <div></div>}
+        <InterviewRoundTable    openCheckboxSelection={handleCheckboxSelection} handleSelectedStudent={handleSelectedStudent} openStudentInfoModal={handleOpenStudentInfoModal}/> : <div></div>}
         {roundState.activeRoundType == 'T'? 
-        <TestRoundTable openCheckboxSelection={handleCheckboxSelection} handleSelectedStudent={handleSelectedStudent}/> : <div></div>}
+        <TestRoundTable openCheckboxSelection={handleCheckboxSelection} handleSelectedStudent={handleSelectedStudent} openStudentInfoModal={handleOpenStudentInfoModal}/> : <div></div>}
     
         <UploadStudent handleOpen={handleOpenStudentUploadModal}/>
         <UploadStudentForm open={openStudentUploadModal} handleClose={handleCloseStudentUploadModal}/>
+        <StudentInfoModal open={openStudentInfoModal} onClose={handleCloseStudentInfoModal}/>
         </Container>
     </div>
     )

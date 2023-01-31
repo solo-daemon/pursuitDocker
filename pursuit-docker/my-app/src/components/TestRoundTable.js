@@ -60,7 +60,7 @@ const TestRoundTable=(props)=>{
                 <GridActionsCellItem
                     icon={<InfoIcon/>}
                     label="info"
-                    
+                    onClick={()=>{props.openStudentInfoModal()}}
                 />
 
             ],

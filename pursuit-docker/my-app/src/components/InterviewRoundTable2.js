@@ -100,7 +100,7 @@ const InterviewRoundTable=(props)=>{
                 <GridActionsCellItem
                     icon={<InfoIcon/>}
                     label="info"
-                    onClick={()=>{console.log(params)}}
+                    onClick={()=>{props.openStudentInfoModal()}}
                 />
 
             ],

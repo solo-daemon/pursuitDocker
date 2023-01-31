@@ -165,11 +165,18 @@ function SeasonModal(props) {
 }
 
 
+function RoundAddModal(){
+    return (
+        <div>round</div>
+    )
+}
+
 function Season() {
     const dispatch = useDispatch()
     const activeSeason = useSelector((state) => state.season.activeSeason);
     const token = useSelector((state) => state.token.token);
     const [open, setOpen] = React.useState(false)
+    const [openRoundModal,setOpenRoundModal] = React.useState(false)
     console.log(activeSeason)
     const handleClick = () => {
         setOpen(true);
@@ -219,7 +226,9 @@ function Season() {
                 </Fab>
                 {open &&
                     <SeasonModal open={open} handleClose={handleClose} />
+                    
                 }
+                <RoundAddModal />
             </div>
         </Container>
     )
